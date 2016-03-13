@@ -333,7 +333,8 @@ class Slider extends React.Component {
   render() {
     const {handle, upperBound, lowerBound} = this.state;
     const {className, prefixCls, disabled, dots, included, range, step,
-      marks, max, min, tipTransitionName, tipFormatter, children} = this.props;
+      marks, max, min, tipTransitionName, tipFormatter, children,
+      rootStyle, handleStyle} = this.props;
 
     const upperOffset = this.calcOffset(upperBound);
     const lowerOffset = this.calcOffset(lowerBound);
@@ -341,13 +342,13 @@ class Slider extends React.Component {
     const handleClassName = prefixCls + '-handle';
     const isNoTip = (step === null) || (tipFormatter === null);
 
-    const upper = (<Handle className={handleClassName}
+    const upper = (<Handle className={handleClassName} style={handleStyle}
                            noTip={isNoTip} tipTransitionName={tipTransitionName} tipFormatter={tipFormatter}
                            offset={upperOffset} value={upperBound} dragging={handle === 'upperBound'}/>);
 
     let lower = null;
     if (range) {
-      lower = (<Handle className={handleClassName}
+      lower = (<Handle className={handleClassName} style={handleStyle}
                        noTip={isNoTip} tipTransitionName={tipTransitionName} tipFormatter={tipFormatter}
                        offset={lowerOffset} value={lowerBound} dragging={handle === 'lowerBound'}/>);
     }
@@ -359,7 +360,7 @@ class Slider extends React.Component {
     });
     const isIncluded = included || range;
     return (
-      <div ref="slider" className={sliderClassName}
+      <div ref="slider" className={sliderClassName} style={rootStyle}
            onTouchStart={disabled ? noop : this.onTouchStart.bind(this)}
            onMouseDown={disabled ? noop : this.onMouseDown.bind(this)}>
         {upper}
@@ -404,6 +405,8 @@ Slider.propTypes = {
   dots: React.PropTypes.bool,
   range: React.PropTypes.bool,
   allowCross: React.PropTypes.bool,
+  rootStyle: React.PropTypes.object,
+  handleStyle: React.PropTypes.object,
 };
 
 Slider.defaultProps = {

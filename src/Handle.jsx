@@ -24,11 +24,11 @@ export default class Handle extends React.Component {
 
   render() {
     const props = this.props;
-    const {className, tipTransitionName, tipFormatter, offset, value} = props;
+    const {className, tipTransitionName, tipFormatter, offset, value, style} = props;
     const {dragging, noTip} = props;
 
-    const style = { left: offset + '%' };
-    const handle = (<div className={className} style={style}
+    const handle = (<div className={className}
+                      style={Object.assign({ left: offset + '%' }, style)}
                       onMouseUp={this.showTooltip.bind(this)}
                       onMouseEnter={this.showTooltip.bind(this)}
                       onMouseLeave={this.hideTooltip.bind(this)}/>);
@@ -58,4 +58,5 @@ Handle.propTypes = {
   value: React.PropTypes.number,
   dragging: React.PropTypes.bool,
   noTip: React.PropTypes.bool,
+  style: React.PropTypes.object,
 };
